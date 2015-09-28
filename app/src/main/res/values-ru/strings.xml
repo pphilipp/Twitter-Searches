@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Twitter Поиск</string>
+    <string name="searchURL">http://mobile.twitter.com/search/</string>
+    <string name="tagPrompt">Тег запроса</string>
+    <string name="queryPrompt">Введите Twitter запрос</string>
+    <string name="taggedSearches">Поисковые запросы меткой</string>
+    <string name="saveDescription">Нажмите эту кнопку, чтобы сохранить помеченное поиска</string>
+    <string name="shareEditDeleteTitle">Поделится, редактировать или удалить поисковой тег  \"%s\"</string>
+    <string-array name="dialog_items">
+        <item>Поделиться</item>
+        <item>Править</item>
+        <item>Удалить</item>
+    </string-array>
+    <string name="shareSubject">Поиск Twitter, которые могли бы вас заинтересовать</string>
+    <string name="shareMessage">Проверьте результаты этого поиска Twitter: %s</string>
+    <string name="shareSearch">Поделиться в:</string>
+    <string name="cancel">Выйти</string>
+    <string name="OK">OK</string>
+    <string name="confirmMessage">Вы уверенны что хотите удалить запрос \"%s\"?</string>
+    <string name="delete">Удалить</string>
+    <string name="missingMessage">Заполните оба поля</string>
+</resources>

@@ -5,7 +5,6 @@ package com.example.andrey.twittersearches;
 
         import java.util.ArrayList;
         import java.util.Collections;
-
         import android.app.AlertDialog;
         import android.app.ListActivity;
         import android.content.Context;
@@ -29,7 +28,6 @@ public class MainActivity extends ListActivity
 {
     // name of SharedPreferences XML file that stores the saved searches
     private static final String SEARCHES = "searches";
-
     private EditText queryEditText; // EditText where user enters a query
     private EditText tagEditText; // EditText where user tags a query
     private SharedPreferences savedSearches; // user's favorite searches
@@ -59,8 +57,7 @@ public class MainActivity extends ListActivity
         setListAdapter(adapter);
 
         // register listener to save a new or edited search
-        ImageButton saveButton =
-                (ImageButton) findViewById(R.id.saveButton);
+        ImageButton saveButton = (ImageButton) findViewById(R.id.saveButton);
         saveButton.setOnClickListener(saveButtonListener);
 
         // register listener that searches Twitter when user touches a tag
@@ -77,23 +74,19 @@ public class MainActivity extends ListActivity
         public void onClick(View v)
         {
             // create tag if neither queryEditText nor tagEditText is empty
-            if (queryEditText.getText().length() > 0 &&
-                    tagEditText.getText().length() > 0)
+            if (queryEditText.getText().length() > 0 && tagEditText.getText().length() > 0)
             {
-                addTaggedSearch(queryEditText.getText().toString(),
-                        tagEditText.getText().toString());
+                addTaggedSearch(queryEditText.getText().toString(),tagEditText.getText().toString());
                 queryEditText.setText(""); // clear queryEditText
                 tagEditText.setText(""); // clear tagEditText
 
-                ((InputMethodManager) getSystemService(
-                        Context.INPUT_METHOD_SERVICE)).hideSoftInputFromWindow(
-                        tagEditText.getWindowToken(), 0);
+                ((InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE))
+                        .hideSoftInputFromWindow(tagEditText.getWindowToken(), 0);
             }
             else // display message asking user to provide a query and a tag
             {
                 // create a new AlertDialog Builder
-                AlertDialog.Builder builder =
-                        new AlertDialog.Builder(MainActivity.this);
+                AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
 
                 // set dialog's message to display
                 builder.setMessage(R.string.missingMessage);
@@ -138,32 +131,26 @@ public class MainActivity extends ListActivity
                     Uri.encode(savedSearches.getString(tag, ""), "UTF-8");
 
             // create an Intent to launch a web browser
-            Intent webIntent = new Intent(Intent.ACTION_VIEW,
-                    Uri.parse(urlString));
-
+            Intent webIntent = new Intent(Intent.ACTION_VIEW,Uri.parse(urlString));
             startActivity(webIntent); // launches web browser to view results
         }
     }; // end itemClickListener declaration
 
     // itemLongClickListener displays a dialog allowing the user to delete
     // or edit a saved search
-    OnItemLongClickListener itemLongClickListener =
-            new OnItemLongClickListener()
+    OnItemLongClickListener itemLongClickListener = new OnItemLongClickListener()
             {
                 @Override
-                public boolean onItemLongClick(AdapterView<?> parent, View view,
-                                               int position, long id)
+                public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id)
                 {
                     // get the tag that the user long touched
                     final String tag = ((TextView) view).getText().toString();
 
                     // create a new AlertDialog
-                    AlertDialog.Builder builder =
-                            new AlertDialog.Builder(MainActivity.this);
+                    AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
 
                     // set the AlertDialog's title
-                    builder.setTitle(
-                            getString(R.string.shareEditDeleteTitle, tag));
+                    builder.setTitle(getString(R.string.shareEditDeleteTitle, tag));
 
                     // set list of items to display in dialog
                     builder.setItems(R.array.dialog_items,
@@ -214,21 +201,18 @@ public class MainActivity extends ListActivity
     private void shareSearch(String tag)
     {
         // create the URL representing the search
-        String urlString = getString(R.string.searchURL) +
-                Uri.encode(savedSearches.getString(tag, ""), "UTF-8");
+        String urlString = getString(R.string.searchURL) + Uri.encode(savedSearches.getString(tag, ""), "UTF-8");
 
         // create Intent to share urlString
         Intent shareIntent = new Intent();
         shareIntent.setAction(Intent.ACTION_SEND);
         shareIntent.putExtra(Intent.EXTRA_SUBJECT,
                 getString(R.string.shareSubject));
-        shareIntent.putExtra(Intent.EXTRA_TEXT,
-                getString(R.string.shareMessage, urlString));
+        shareIntent.putExtra(Intent.EXTRA_TEXT, getString(R.string.shareMessage, urlString));
         shareIntent.setType("text/plain");
 
         // display apps that can share text
-        startActivity(Intent.createChooser(shareIntent,
-                getString(R.string.shareSearch)));
+        startActivity(Intent.createChooser(shareIntent,getString(R.string.shareSearch)));
     }
 
     // deletes a search after the user confirms the delete operation
@@ -238,8 +222,7 @@ public class MainActivity extends ListActivity
         AlertDialog.Builder confirmBuilder = new AlertDialog.Builder(this);
 
         // set the AlertDialog's message
-        confirmBuilder.setMessage(
-                getString(R.string.confirmMessage, tag));
+        confirmBuilder.setMessage(getString(R.string.confirmMessage, tag));
 
         // set the AlertDialog's negative Button
         confirmBuilder.setNegativeButton( getString(R.string.cancel),
@@ -263,8 +246,7 @@ public class MainActivity extends ListActivity
                         tags.remove(tag); // remove tag from tags
 
                         // get SharedPreferences.Editor to remove saved search
-                        SharedPreferences.Editor preferencesEditor =
-                                savedSearches.edit();
+                        SharedPreferences.Editor preferencesEditor = savedSearches.edit();
                         preferencesEditor.remove(tag); // remove search
                         preferencesEditor.apply(); // saves the changes
 
