@@ -3,7 +3,7 @@
 // access and display in the device's web browser
 package com.example.andrey.twittersearches;
 
-        import java.util.ArrayList;
+import java.util.ArrayList;
         import java.util.Collections;
         import android.app.AlertDialog;
         import android.app.ListActivity;
@@ -24,15 +24,20 @@ package com.example.andrey.twittersearches;
         import android.widget.ImageButton;
         import android.widget.TextView;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
+
 public class MainActivity extends ListActivity
 {
     // name of SharedPreferences XML file that stores the saved searches
     private static final String SEARCHES = "searches";
-    private EditText queryEditText; // EditText where user enters a query
-    private EditText tagEditText; // EditText where user tags a query
+    @Bind(R.id.queryEditText) EditText queryEditText; // EditText where user enters a query
+    @Bind(R.id.tagEditText) EditText tagEditText;// EditText where user tags a query
+    @Bind(R.id.saveButton) ImageButton saveButton; //save a new or edited search button
     private SharedPreferences savedSearches; // user's favorite searches
     private ArrayList<String> tags; // list of tags for saved searches
     private ArrayAdapter<String> adapter; // binds tags to ListView
+
 
     // called when MainActivity is first created
     @Override
@@ -41,9 +46,8 @@ public class MainActivity extends ListActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        // get references to the EditTexts
-        queryEditText = (EditText) findViewById(R.id.queryEditText);
-        tagEditText = (EditText) findViewById(R.id.tagEditText);
+        // get references to the EditTexts and button
+        ButterKnife.bind(MainActivity.this); //init of ButterKnife
 
         // get the SharedPreferences containing the user's saved searches
         savedSearches = getSharedPreferences(SEARCHES, MODE_PRIVATE);
@@ -57,7 +61,6 @@ public class MainActivity extends ListActivity
         setListAdapter(adapter);
 
         // register listener to save a new or edited search
-        ImageButton saveButton = (ImageButton) findViewById(R.id.saveButton);
         saveButton.setOnClickListener(saveButtonListener);
 
         // register listener that searches Twitter when user touches a tag
@@ -206,8 +209,7 @@ public class MainActivity extends ListActivity
         // create Intent to share urlString
         Intent shareIntent = new Intent();
         shareIntent.setAction(Intent.ACTION_SEND);
-        shareIntent.putExtra(Intent.EXTRA_SUBJECT,
-                getString(R.string.shareSubject));
+        shareIntent.putExtra(Intent.EXTRA_SUBJECT, getString(R.string.shareSubject));
         shareIntent.putExtra(Intent.EXTRA_TEXT, getString(R.string.shareMessage, urlString));
         shareIntent.setType("text/plain");
 
@@ -234,7 +236,7 @@ public class MainActivity extends ListActivity
                         dialog.cancel(); // dismiss dialog
                     }
                 }
-        ); // end call to setNegativeButton
+         ); // end call to setNegativeButton
 
         // set the AlertDialog's positive Button
         confirmBuilder.setPositiveButton(getString(R.string.delete),
