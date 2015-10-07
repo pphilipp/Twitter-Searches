@@ -4,39 +4,49 @@
 package com.example.andrey.twittersearches;
 
 import java.util.ArrayList;
-        import java.util.Collections;
-        import android.app.AlertDialog;
-        import android.app.ListActivity;
-        import android.content.Context;
-        import android.content.DialogInterface;
-        import android.content.Intent;
-        import android.content.SharedPreferences;
-        import android.net.Uri;
-        import android.os.Bundle;
-        import android.view.View;
-        import android.view.View.OnClickListener;
-        import android.view.inputmethod.InputMethodManager;
-        import android.widget.AdapterView;
-        import android.widget.AdapterView.OnItemClickListener;
-        import android.widget.AdapterView.OnItemLongClickListener;
-        import android.widget.ArrayAdapter;
-        import android.widget.EditText;
-        import android.widget.ImageButton;
-        import android.widget.TextView;
+import java.util.Collections;
+
+import android.app.ActionBar;
+import android.app.AlertDialog;
+import android.app.ListActivity;
+import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.graphics.Color;
+import android.net.Uri;
+import android.os.Bundle;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarActivity;
+import android.support.v7.widget.Toolbar;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
+import android.widget.AdapterView.OnItemLongClickListener;
+import android.widget.ArrayAdapter;
+import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.TextView;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+
+import static android.app.PendingIntent.getActivity;
 
 public class MainActivity extends ListActivity
 {
     // name of SharedPreferences XML file that stores the saved searches
     private static final String SEARCHES = "searches";
+    @Bind(R.id.app_bar) Toolbar toolbar;
     @Bind(R.id.queryEditText) EditText queryEditText; // EditText where user enters a query
     @Bind(R.id.tagEditText) EditText tagEditText;// EditText where user tags a query
     @Bind(R.id.saveButton) ImageButton saveButton; //save a new or edited search button
     private SharedPreferences savedSearches; // user's favorite searches
     private ArrayList<String> tags; // list of tags for saved searches
     private ArrayAdapter<String> adapter; // binds tags to ListView
+
 
 
     // called when MainActivity is first created
@@ -46,8 +56,18 @@ public class MainActivity extends ListActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+
         // get references to the EditTexts and button
         ButterKnife.bind(MainActivity.this); //init of ButterKnife
+
+        //init the toolbar
+        initToolbar();
+
+        //int navDrawer
+//        getActionBar().setDisplayShowHomeEnabled(true); in not working WTF!!!
+        NavigationDrawerFragment drawerFragment = (NavigationDrawerFragment)
+                getFragmentManager().findFragmentById(R.id.fragment_navigation_drawer);
+        drawerFragment.setUp(R.id.fragment_navigation_drawer, (DrawerLayout) findViewById(R.id.drawer_layout), toolbar);
 
         // get the SharedPreferences containing the user's saved searches
         savedSearches = getSharedPreferences(SEARCHES, MODE_PRIVATE);
@@ -69,6 +89,11 @@ public class MainActivity extends ListActivity
         // set listener that allows user to delete or edit a search
         getListView().setOnItemLongClickListener(itemLongClickListener);
     } // end method onCreate
+
+    private void initToolbar() {
+        toolbar.setTitle("Twitter searches");
+        toolbar.setTitleTextColor(Color.WHITE);
+    }
 
     // saveButtonListener saves a tag-query pair into SharedPreferences
     public OnClickListener saveButtonListener = new OnClickListener()
@@ -125,8 +150,7 @@ public class MainActivity extends ListActivity
     OnItemClickListener itemClickListener = new OnItemClickListener()
     {
         @Override
-        public void onItemClick(AdapterView<?> parent, View view,
-                                int position, long id)
+        public void onItemClick(AdapterView<?> parent, View view, int position, long id)
         {
             // get query string and create a URL representing the search
             String tag = ((TextView) view).getText().toString();
