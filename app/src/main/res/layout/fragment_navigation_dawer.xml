@@ -6,9 +6,18 @@
     tools:context="com.example.andrey.twittersearches.NavigationDrawerFragment">
 
     <!-- TODO: Update blank fragment layout -->
+    <ImageView
+        android:layout_width="280dp"
+        android:layout_height="140dp"
+        android:background="#69F0AE"
+        android:src="@drawable/twitter_logo_blue"
+        android:padding="@dimen/abc_action_bar_content_inset_material"
+        android:id="@+id/nav_drawer"/>
+
     <TextView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_below="@+id/nav_drawer"
         android:text="@string/hello_blank_fragment" />
 
 </RelativeLayout>

@@ -6,7 +6,6 @@ package com.example.andrey.twittersearches;
 import java.util.ArrayList;
 import java.util.Collections;
 
-import android.app.ActionBar;
 import android.app.AlertDialog;
 import android.app.ListActivity;
 import android.content.Context;
@@ -16,8 +15,8 @@ import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -42,7 +41,8 @@ public class MainActivity extends ListActivity
     @Bind(R.id.app_bar) Toolbar toolbar;
     @Bind(R.id.queryEditText) EditText queryEditText; // EditText where user enters a query
     @Bind(R.id.tagEditText) EditText tagEditText;// EditText where user tags a query
-    @Bind(R.id.saveButton) ImageButton saveButton; //save a new or edited search button
+    @Bind(R.id.saveButtonFAB)
+    FloatingActionButton saveButton; //save a new or edited search button
     private SharedPreferences savedSearches; // user's favorite searches
     private ArrayList<String> tags; // list of tags for saved searches
     private ArrayAdapter<String> adapter; // binds tags to ListView

@@ -3,15 +3,19 @@
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
+    android:fitsSystemWindows="true"
     android:layout_height="match_parent">
 
-    <GridLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <GridLayout
+    android:fitsSystemWindows="true"
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/fridLayout"
+    android:id="@+id/gridLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:columnCount="1"
     tools:context=".MainActivity">
+
     <include
         android:id="@+id/app_bar"
         layout="@layout/app_bar"
@@ -26,40 +30,29 @@
         android:layout_gravity="fill_horizontal"
         android:hint="@string/queryPrompt"
         android:imeOptions="actionNext"
-        android:paddingLeft="@dimen/activity_horizontal_margin" android:paddingRight="@dimen/activity_horizontal_margin">
-
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin">
         <requestFocus/>
+
     </EditText>
 
-    <LinearLayout
-        android:layout_gravity="fill_horizontal"
-        android:paddingLeft="@dimen/activity_horizontal_margin" android:paddingRight="@dimen/activity_horizontal_margin">
+    <EditText
+        android:id="@+id/tagEditText"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|fill_horizontal"
+        android:hint="@string/tagPrompt"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:imeOptions="actionDone" />
 
-        <EditText
-            android:id="@+id/tagEditText"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom|fill_horizontal"
-            android:layout_weight="1"
-            android:hint="@string/tagPrompt"
-            android:imeOptions="actionDone" />
-
-        <ImageButton
-            android:id="@+id/saveButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:contentDescription="@string/saveDescription"
-            android:src="@android:drawable/ic_menu_save" />
-    </LinearLayout>
-
-    <LinearLayout
+    <RelativeLayout
         android:layout_height="0dp"
         android:layout_gravity="fill"
         android:layout_marginTop="@dimen/activity_vertical_margin"
-        android:orientation="vertical"
         android:paddingLeft="@dimen/activity_horizontal_margin"
         android:paddingRight="@dimen/activity_horizontal_margin"
-        android:paddingTop="@dimen/activity_vertical_margin" >
+        android:paddingBottom="16dp">
 
         <TextView
             android:id="@+id/textView1"
@@ -67,29 +60,47 @@
             android:layout_height="wrap_content"
             android:layout_gravity="fill_horizontal"
             android:gravity="center_horizontal"
+            android:paddingBottom="@dimen/activity_vertical_margin"
             android:text="@string/taggedSearches"
             android:textAppearance="?android:attr/textAppearanceMedium" />
 
         <ListView
             android:id="@android:id/list"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
+            android:layout_height="match_parent"
             android:layout_gravity="fill"
+            android:layout_below="@+id/textView1"
             android:layout_marginBottom="@dimen/tagged_searches_padding"
             android:layout_marginTop="@dimen/tagged_searches_padding"
-            android:layout_weight="1" />
+            />
 
-    </LinearLayout>
+        <android.support.design.widget.FloatingActionButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right|bottom"
+            android:id="@+id/saveButtonFAB"
+            android:contentDescription="@string/saveDescription"
+            android:src="@drawable/ic_add_white_24dp"
+            app:backgroundTint="#69F0AE"
+            app:rippleColor="#ffffff"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            app:pressedTranslationZ="12dp"
+            android:layout_marginRight="24dp"
+            android:layout_marginBottom="24dp"
+            app:elevation="6dp"/>
 
-</GridLayout>
+    </RelativeLayout>
+
+    </GridLayout>
 
     <fragment
         android:layout_width="@dimen/nav_drawer_width"
         android:layout_height="match_parent"
         android:layout_gravity="start"
-        app:layout="@layout/fragment_naviigation_dawer"
+        app:layout="@layout/fragment_navigation_dawer"
         android:name="com.example.andrey.twittersearches.NavigationDrawerFragment"
-        tools:layout="@layout/fragment_naviigation_dawer"
+        tools:layout="@layout/fragment_navigation_dawer"
         android:id="@+id/fragment_navigation_drawer" />
 
 </android.support.v4.widget.DrawerLayout>

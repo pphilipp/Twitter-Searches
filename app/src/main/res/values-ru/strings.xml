@@ -4,7 +4,7 @@
     <string name="searchURL">http://mobile.twitter.com/search/</string>
     <string name="tagPrompt">Тег запроса</string>
     <string name="queryPrompt">Введите Twitter запрос</string>
-    <string name="taggedSearches">Поисковые запросы меткой</string>
+    <string name="taggedSearches">Поисковые запросы</string>
     <string name="saveDescription">Нажмите эту кнопку, чтобы сохранить помеченное поиска</string>
     <string name="shareEditDeleteTitle">Поделится, редактировать или удалить поисковой тег  \"%s\"</string>
     <string-array name="dialog_items">
